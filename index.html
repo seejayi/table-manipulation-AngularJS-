@@ -5,21 +5,57 @@
     <script data-require="angular.js@1.2.9" data-semver="1.2.9" src="http://code.angularjs.org/1.2.9/angular.js"></script>
     
     <script src="mainCtrl.js"></script>
+    <style type="text/css">
+    .edit-in-place span {
+      cursor: pointer;
+    }
+    .edit-in-place input {
+      display: none;
+    }
+    .edit-in-place.active span {
+      display: none;
+    }
+    .edit-in-place.active input {
+      display: inline-block;
+    }
+    </style>
 </head>
 
 <body>
   <div ng-app="myApp" ng-controller="myCtrl">
-      [<span >"{{id}}"</span>]:
-      [<span ng-repeat="input in persons">"{{input.name}}"</span>]:
-      [<span ng-repeat="input in persons">"{{input.mobile}}"</span>]:
-      [<span ng-repeat="input in persons">"{{input.adress}}"</span>]
+      <span >Data:</span>
+      [<span >"id:{{id}}"</span>]:
+      [<span ng-repeat="input in persons">"name:{{input.name}}"</span>]:
+      [<span ng-repeat="input in persons">"mobile:{{input.mobile}}"</span>]:
+      [<span ng-repeat="input in persons">"adress:{{input.adress}}"</span>]
+      <p></p>
       <div ng-repeat="input in persons">
           <input type="text" ng-model="input.name" />
           <input type="text" ng-model="input.mobile" />
           <input type="text" ng-model="input.adress" />
-          <button ng-click="removeRow($index)">Remove</button>
+          
       </div>
-      <button ng-click="addRow($id)">add person</button>
+      <p>
+        <button ng-click="addRow()">add person</button>
+      </p>
+      <table>
+        <tr>
+          <td>Id</td>
+          <td>Name</td>
+          <td>Mobile</td>
+          <td>Adress</td>
+          <td>Actions</td>
+        </tr>
+        <tr ng-repeat="input in persons">
+          <td>{{$index + 1}}</td>
+          <td><edit-in-place value="input.name"></edit-in-place></td>
+          <td><edit-in-place value="input.mobile"></edit-in-place></td>
+          <td><edit-in-place value="input.adress"></edit-in-place></td>
+          <td>
+            <button ng-click="removeRow($index)">Remove</button>
+          </td>
+        </tr>
+      </table>
   </div>
 </body>
 
