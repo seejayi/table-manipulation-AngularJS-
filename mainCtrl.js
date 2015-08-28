@@ -19,8 +19,12 @@ app.controller('myCtrl', ['$scope', function ($scope) {
     }];
 
 	$scope.addRow = function(){
-		
-	    $scope.persons.push({name:'', mobile:'', adress:''});
+		  var person = {
+        name: $scope.name,
+        mobile: $scope.mobile,
+        adress: $scope.adress,
+      };
+	    $scope.persons.push(person);
 	}
 
 	$scope.removeRow = function(index){

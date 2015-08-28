@@ -3,42 +3,81 @@
 
 <head>
     <script data-require="angular.js@1.2.9" data-semver="1.2.9" src="http://code.angularjs.org/1.2.9/angular.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     
     <script src="mainCtrl.js"></script>
     <style type="text/css">
-    .edit-in-place span {
-      cursor: pointer;
-    }
-    .edit-in-place input {
-      display: none;
-    }
-    .edit-in-place.active span {
-      display: none;
-    }
-    .edit-in-place.active input {
-      display: inline-block;
-    }
+      .edit-in-place span {
+        cursor: pointer;
+      }
+      .edit-in-place input {
+        display: none;
+      }
+      .edit-in-place.active span {
+        display: none;
+      }
+      .edit-in-place.active input {
+        display: inline-block;
+      }
+      .form-wrap {
+        margin: 50px 50px; 
+      }
     </style>
 </head>
 
 <body>
   <div ng-app="myApp" ng-controller="myCtrl">
-      <span >Data:</span>
+<!--       <span >Data: {{persons}}</span>
       [<span >"id:{{id}}"</span>]:
       [<span ng-repeat="input in persons">"name:{{input.name}}"</span>]:
       [<span ng-repeat="input in persons">"mobile:{{input.mobile}}"</span>]:
-      [<span ng-repeat="input in persons">"adress:{{input.adress}}"</span>]
-      <p></p>
-      <div ng-repeat="input in persons">
-          <input type="text" ng-model="input.name" />
-          <input type="text" ng-model="input.mobile" />
-          <input type="text" ng-model="input.adress" />
-          
+      [<span ng-repeat="input in persons">"adress:{{input.adress}}"</span>] -->
+    <div class="container-fluid form-wrap">
+      <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Name</span>
+            <input type="text" ng-model="name" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Mobile Number</span>
+            <input type="text" ng-model="mobile" class="form-control" placeholder="mobile" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Your Adress</span>
+            <input type="text" ng-model="adress" class="form-control" placeholder="current adress" aria-describedby="basic-addon1">
+          </div>
+        <button type="button" ng-click="addRow()" class="btn btn-default" aria-label="Left Align">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          Add person
+        </button>
+          </div>
+
       </div>
-      <p>
-        <button ng-click="addRow()">add person</button>
-      </p>
-      <table>
+    </div>
+          
+<!-- 
+          <input type="text" ng-model="name" placeholder="name"/>
+          <input type="text" ng-model="mobile" placeholder="mobile"/>
+          <input type="text" ng-model="adress" placeholder="adress"/> -->
+          
+      
+      
+      
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Panel heading</div>
+      <!-- Table -->
+      <table class="table">
         <tr>
           <td>Id</td>
           <td>Name</td>
@@ -56,7 +95,11 @@
           </td>
         </tr>
       </table>
+
+    </div>
+
   </div>
+
 </body>
 
 </html>
