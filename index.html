@@ -3,8 +3,7 @@
 
 <head>
     <script data-require="angular.js@1.2.9" data-semver="1.2.9" src="http://code.angularjs.org/1.2.9/angular.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script data-require="jquery@*" data-semver="2.1.4" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -14,8 +13,10 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     
+    
     <script src="mainCtrl.js"></script>
     <style type="text/css">
+
       .edit-in-place span {
         cursor: pointer;
       }
@@ -35,12 +36,8 @@
 </head>
 
 <body>
-  <div ng-app="myApp" ng-controller="myCtrl">
-<!--       <span >Data: {{persons}}</span>
-      [<span >"id:{{id}}"</span>]:
-      [<span ng-repeat="input in persons">"name:{{input.name}}"</span>]:
-      [<span ng-repeat="input in persons">"mobile:{{input.mobile}}"</span>]:
-      [<span ng-repeat="input in persons">"adress:{{input.adress}}"</span>] -->
+  <div ng-app="app" ng-controller="myCtrl">
+
     <div class="container-fluid form-wrap">
       <div class="row">
           <div class="col-md-6 col-md-offset-3">
@@ -65,13 +62,6 @@
       </div>
     </div>
           
-<!-- 
-          <input type="text" ng-model="name" placeholder="name"/>
-          <input type="text" ng-model="mobile" placeholder="mobile"/>
-          <input type="text" ng-model="adress" placeholder="adress"/> -->
-          
-      
-      
       
   <div class="panel panel-default">
     <!-- Default panel contents -->
@@ -87,13 +77,32 @@
         </tr>
         <tr ng-repeat="input in persons">
           <td>{{$index + 1}}</td>
-          <td><edit-in-place value="input.name"></edit-in-place></td>
-          <td><edit-in-place value="input.mobile"></edit-in-place></td>
-          <td><edit-in-place value="input.adress"></edit-in-place></td>
           <td>
-            <button ng-click="removeRow($index)">Remove</button>
+            <span ng-hide="editMode">{{input.name}}</span> 
+            <input type="text" ng-show="editMode" ng-model="input.name">
+          </td>
+          <td>
+            <span ng-hide="editMode">{{input.mobile}}</span>
+            <input type="text" ng-show="editMode" ng-model="input.mobile">
+          </td>
+          <td>
+            <span ng-hide="editMode">{{input.adress}}</span> 
+            <input type="text" ng-show="editMode" ng-model="input.adress">
+          </td>
+          <td>
+            
+              <button type="submit" ng-hide="editMode" ng-click="editMode=true;onEdit(input)">Edit</button>
+              <button ng-hide="editMode" ng-click="removeRow($index)">Remove</button>
+            
+            
+              <button type="submit" ng-show="editMode" ng-click="editMode=false;" id="saveBtn">Ok</button>
+              <button type="submit" ng-show="editMode" ng-click="editMode-false;cancel($index)" id="cancelBtn">Cancel</button>
+            
           </td>
         </tr>
+      </table>
+      <table>
+        <pre>persons: {{persons}}</pre>
       </table>
 
     </div>
