@@ -9,7 +9,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout',  function ($scope, $htt
 //     $scope.persons.push(allData);
 //   });
 
-	$scope.persons = [{
+  $scope.editing = false;
+  $scope.persons = [{
       id: 1,
       name: 'vasya',
       mobile: '1234134',
@@ -34,27 +35,25 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout',  function ($scope, $htt
         adress: $scope.adress,
       };
       $scope.persons.push(person);
-  $scope.editMode = false;
+  $scope.editing = false;
   }
 
   $scope.removeRow = function(index){
       $scope.persons.splice(index, 1);
   }
   
-  $scope.editingData = [];
+  $scope.editingData = {};
   $scope.onEdit = function(field){
-    $scope.editMode = $scope.persons.indexOf(field);
-    $scope.editingData[$scope.editMode] = angular.copy(field);
-    
-    
+    $scope.editing = $scope.persons.indexOf(field);
+    $scope.editingData[$scope.editing] = angular.copy(field);
   }
 
   $scope.save = function(index){
-    $scope.persons[$scope.editMode] = $scope.editingData;
+    $scope.persons[$scope.editing] = $scope.editingData;
   }
   $scope.cancel = function(index){
     $scope.persons[index] = $scope.editingData[index];
-    $scope.editMode = false;
+    $scope.editing = false;
   }
 
 }]);
