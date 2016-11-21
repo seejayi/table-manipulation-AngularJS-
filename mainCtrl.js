@@ -57,28 +57,22 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout',  function ($scope, $htt
   }
 
 }]);
-
-// app.directive( 'editInPlace', function() {
-//   return {
-//     restrict: 'E',
-//     scope: { value: '=' },
-//     template: '<span ng-click="edit()" ng-bind="value"></span><input ng-model="value"></input>',
-//     link: function ( $scope, element, attrs ) {
-
-//       var inputElement = angular.element( element.children()[1] );
-//       element.addClass( 'edit-in-place' );
-//       $scope.editing = false;
-
-//       $scope.edit = function () {
-//         $scope.editing = true;
-//         element.addClass( 'active' );
-//         inputElement[0].focus();
-//       };
-
-//       inputElement.prop( 'onblur', function() {
-//         $scope.editing = false;
-//         element.removeClass( 'active' );
-//       });
-//     }
-//   };
-// });
+  var INTEGER_REGEXP = /^\-?\d*$/;
+app.directive( 'integer', function() {
+  return {
+    require: 'ngModel',
+      link: function(scope, elm, attrs, ctrl) {
+        ctrl.$parsers.unshift(function(viewValue) {
+          if (INTEGER_REGEXP.test(viewValue)) {
+            // it is valid
+            ctrl.$setValidity('integer', true);
+            return viewValue;
+          } else {
+            // it is invalid, return undefined (no model update)
+            ctrl.$setValidity('integer', false);
+            return undefined;
+          }
+        });
+      }
+  };
+});
